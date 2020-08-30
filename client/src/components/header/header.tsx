@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import GoogleBtn from "../oauth-btn/oauth-btn";
 
 const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [accessToken, setAccessToken] = useState("");
+
+  const handleLogin = (data: any) => {
+    setIsLoggedIn(true);
+    setAccessToken(data.accessToken);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setAccessToken("");
+  };
   return (
     <div>
       <div className="navbar-top bg-white">
@@ -21,7 +33,8 @@ const Header = () => {
                   type="text"
                   id="search-bar"
                   className="no-border bg-light form-control input-sm"
-                  placeholder="Please signin to enable search"
+                  placeholder={!isLoggedIn ? "Please signin to enable search" : "Search songs and artists"}
+                  disabled={!isLoggedIn}
                 />
                 <span className="input-group-btn">
                   <button className="btn btn-sm bg-light" id="search-button">
@@ -31,7 +44,7 @@ const Header = () => {
               </div>
             </div>
           </form>
-          <GoogleBtn />
+          <GoogleBtn login={handleLogin} logout={handleLogout} />
         </div>
       </div>
     </div>

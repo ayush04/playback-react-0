@@ -4,20 +4,19 @@ import { GoogleLogin, GoogleLogout } from "react-google-login";
 const CLIENT_ID: string =
   "897342243120-5gqs1rne58kd214i5q81dof7g2kafvqi.apps.googleusercontent.com";
 
-const GoogleBtn = () => {
+const GoogleBtn = ({login, logout}: any) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [accessToken, setAccessToken] = useState("");
 
-  const logout = (): void => {
+  const logoutUser = (): void => {
     setIsLoggedIn(false);
-    setAccessToken("");
+    logout();
   };
 
-  const login = (response: any): void => {
+  const loginUser = (response: any): void => {
     if (response.accessToken) {
       setIsLoggedIn(true);
-        setAccessToken(response.accessToken);
-        console.log(response.profileObj);
+      login(response);
+      console.log(response.profileObj);
     }
   };
 
@@ -29,30 +28,24 @@ const GoogleBtn = () => {
     alert("Failed to log out");
   };
   return (
-    <div>
+    <div className="float-right">
       {isLoggedIn ? (
         <GoogleLogout
           clientId={CLIENT_ID}
           buttonText="Logout"
-          onLogoutSuccess={logout}
+          onLogoutSuccess={logoutUser}
           onFailure={handleLogoutFailure}
         ></GoogleLogout>
       ) : (
         <GoogleLogin
           clientId={CLIENT_ID}
           buttonText="Login"
-          onSuccess={login}
+          onSuccess={loginUser}
           onFailure={handleLoginFailure}
           cookiePolicy={"single_host_origin"}
           responseType="code,token"
         />
       )}
-      {accessToken ? (
-        <h5>
-          Your Access Token: <br />
-          <br /> {accessToken}
-        </h5>
-      ) : null}
     </div>
   );
 };
