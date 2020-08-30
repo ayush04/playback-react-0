@@ -4,7 +4,7 @@ import GoogleBtn from "../oauth-btn/oauth-btn";
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [accessToken, setAccessToken] = useState("");
-
+  const [searchTerm, setSearchTerm] = useState("");
   const handleLogin = (data: any) => {
     setIsLoggedIn(true);
     setAccessToken(data.accessToken);
@@ -13,6 +13,11 @@ const Header = () => {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setAccessToken("");
+  };
+
+  const search = (event: any) => {
+    event.preventDefault();
+    alert(searchTerm);
   };
   return (
     <div>
@@ -35,9 +40,10 @@ const Header = () => {
                   className="no-border bg-light form-control input-sm"
                   placeholder={!isLoggedIn ? "Please signin to enable search" : "Search songs and artists"}
                   disabled={!isLoggedIn}
+                  onChange={event => setSearchTerm(event.target.value)}
                 />
                 <span className="input-group-btn">
-                  <button className="btn btn-sm bg-light" id="search-button">
+                  <button className="btn btn-sm bg-light" onClick={event => search(event)}>
                     <i className="fas fa-search"></i>
                   </button>
                 </span>
