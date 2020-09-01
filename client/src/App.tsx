@@ -13,7 +13,7 @@ function App() {
         <div className="app-content-body">
             <div className="h-box">
                 <div className="col wrapper-lg">
-                    <h3 className="font-weight-light mt-2 mb-3">Title</h3>
+                    {/*<h3 className="font-weight-light mt-2 mb-3">Title</h3>*/}
                     <div className="row row-cols-sm-1" id="search-results">
                     </div>
                 </div>
