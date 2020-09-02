@@ -522,7 +522,7 @@
         "affectsGlobalScope": false
       },
       "../secret/secret.ts": {
-        "version": "a647c7bbefba7fc283b2c0e23df6c8f2f115aa28c7214ee1f5636a882cfae7e6",
+        "version": "24ff4ae15b1b7bcfe48709a8d81b09f1471bc14145a4d3b1a6e7cef902f73c81",
         "signature": "b920874968b9a82f32098e05858f7bf2d5ece1858fd17677772e4ef704c12bd4",
         "affectsGlobalScope": false
       },
@@ -572,7 +572,7 @@
         "affectsGlobalScope": false
       },
       "../app.ts": {
-        "version": "e4fd353bb00430ba4a2988335f3cd3dfdb67d7a04884708b5a3bb81d403aa37a",
+        "version": "5673f7db0833f1311deb3532a527168518c796cb082dc4ad04511d75b1c0d661",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
         "affectsGlobalScope": false
       },
@@ -595,6 +595,11 @@
         "version": "f0cb4b3ab88193e3e51e9e2622e4c375955003f1f81239d72c5b7a95415dad3e",
         "signature": "f0cb4b3ab88193e3e51e9e2622e4c375955003f1f81239d72c5b7a95415dad3e",
         "affectsGlobalScope": false
+      },
+      "../node_modules/@types/gapi/index.d.ts": {
+        "version": "78b5210213381792780dcf82f54f2092f6caa54e4659a38b194d4869bcb7df00",
+        "signature": "78b5210213381792780dcf82f54f2092f6caa54e4659a38b194d4869bcb7df00",
+        "affectsGlobalScope": true
       },
       "../node_modules/@types/minimatch/index.d.ts": {
         "version": "1d1e6bd176eee5970968423d7e215bfd66828b6db8d54d17afec05a831322633",
@@ -818,6 +823,14 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/qs/index.d.ts",
         "../node_modules/@types/serve-static/index.d.ts"
+      ],
+      "../node_modules/@types/gapi/index.d.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/process.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/process.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
       ],
       "../node_modules/@types/glob/index.d.ts": [
         "../node_modules/@types/minimatch/index.d.ts",
@@ -1867,6 +1880,14 @@
         "../node_modules/@types/qs/index.d.ts",
         "../node_modules/@types/serve-static/index.d.ts"
       ],
+      "../node_modules/@types/gapi/index.d.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/process.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/process.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
       "../node_modules/@types/glob/index.d.ts": [
         "../node_modules/@types/minimatch/index.d.ts",
         "../node_modules/@types/node/events.d.ts",
@@ -2780,6 +2801,7 @@
       "../node_modules/@types/cors/index.d.ts",
       "../node_modules/@types/express-serve-static-core/index.d.ts",
       "../node_modules/@types/express/index.d.ts",
+      "../node_modules/@types/gapi/index.d.ts",
       "../node_modules/@types/glob/index.d.ts",
       "../node_modules/@types/mime/index.d.ts",
       "../node_modules/@types/minimatch/index.d.ts",

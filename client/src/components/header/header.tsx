@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import GoogleBtn from "../oauth-btn/oauth-btn";
+import { Authentication } from "../../services/authentication";
+import Search from "../../services/search";
+import { Song } from "../../models/song";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -8,6 +11,7 @@ const Header = () => {
   const handleLogin = (data: any) => {
     setIsLoggedIn(true);
     setAccessToken(data.accessToken);
+    Authentication.loadGAPIClient();
   };
 
   const handleLogout = () => {
@@ -18,6 +22,10 @@ const Header = () => {
   const search = (event: any) => {
     event.preventDefault();
     alert(searchTerm);
+    Search.search(searchTerm).then((response: Array<Song>) => {
+      console.log(response);
+    });
+    
   };
   return (
     <div>

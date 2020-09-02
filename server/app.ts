@@ -35,7 +35,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 connect(SECRET.MONGODB_CONNECTION_STRING)
     .then(() => {
-        app.listen(3000); 
+        app.listen(3001); 
     })
     .catch(err => console.log('Cannot connect to DB', err));
 

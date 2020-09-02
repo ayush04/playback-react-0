@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
 });
 mongoose_1.connect(secret_2.default.MONGODB_CONNECTION_STRING)
     .then(() => {
-    app.listen(3000);
+    app.listen(3001);
 })
     .catch(err => console.log('Cannot connect to DB', err));
 //app.listen(3000);
