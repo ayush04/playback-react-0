@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import GoogleBtn from "../oauth-btn/oauth-btn";
 import { Authentication } from "../../services/authentication";
 import Search from "../../services/search";
 import { Song } from "../../models/song";
+import { PlaybackContext } from '../../playback-context';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [accessToken, setAccessToken] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+
+  // @ts-ignore
+  const { data, setData } = useContext(PlaybackContext);
   const handleLogin = (data: any) => {
     setIsLoggedIn(true);
     setAccessToken(data.accessToken);
@@ -21,9 +25,11 @@ const Header = () => {
 
   const search = (event: any) => {
     event.preventDefault();
-    alert(searchTerm);
     Search.search(searchTerm).then((response: Array<Song>) => {
-      console.log(response);
+      let updatedData = {...data};
+      updatedData.searchData = response;
+      setData(updatedData);
+      console.log(updatedData);
     });
     
   };

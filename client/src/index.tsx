@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import PlaybackProvider from './playback-context';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <PlaybackProvider>
     <App />
-  </React.StrictMode>,
+  </PlaybackProvider>,
   document.getElementById('root')
 );
