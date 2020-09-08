@@ -6,7 +6,7 @@ import { Song } from "../../models/song";
 import { PlaybackContext } from '../../playback-context';
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(Authentication.isAuthenticated());
   const [accessToken, setAccessToken] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 

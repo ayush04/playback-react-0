@@ -6,6 +6,7 @@ const SearchResults = () => {
   // @ts-ignore
   const { data } = useContext(PlaybackContext);
   console.log(data);
+
   return (
     <React.Fragment>
       {data &&
