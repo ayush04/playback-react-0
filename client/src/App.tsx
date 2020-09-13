@@ -11,10 +11,10 @@ import Player from "./components/player/player";
 export let player: any;
 
 function App() {
+  QueueService.initalize();
   const playerRef = useRef<HTMLInputElement>(null);
   useLayoutEffect(() => {
     player = YTPlayer.getInstance('#' + playerRef.current?.id!);
-    QueueService.initalize();
   });
   return (
     <div className="App">
