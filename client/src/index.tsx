@@ -6,7 +6,7 @@ import PlaybackProvider from './playback-context';
 
 ReactDOM.render(
   <PlaybackProvider>
-    <App />
+    <App />    
   </PlaybackProvider>,
   document.getElementById('root')
 );

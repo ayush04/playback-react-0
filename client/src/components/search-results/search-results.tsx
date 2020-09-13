@@ -1,11 +1,20 @@
 import React, { useContext } from "react";
 import { PlaybackContext } from "../../playback-context";
 import { Song } from "../../models/song";
+import { playSong as PlaySong, getSongFromId } from "../../services/song";
 
 const SearchResults = () => {
   // @ts-ignore
   const { data } = useContext(PlaybackContext);
   console.log(data);
+
+  const playSong = (songId: string, action: string, event: React.MouseEvent): void => {
+    event.preventDefault();
+    const song = getSongFromId(data.searchData, songId);
+    if(song) {
+      PlaySong(song, action);
+    }
+  };
 
   return (
     <React.Fragment>
@@ -19,9 +28,8 @@ const SearchResults = () => {
                   <div className="center text-center w-full m-t-n">
                     <a
                       href=""
+                      onClick={(event) => playSong(song.getId(), 'play', event)}
                       className="playLink"
-                      data-attribute={song.getId()}
-                      data-attribute-action="play"
                     >
                       <i className="fa fa-2x fa-play-circle text-white m-r-sm"></i>
                     </a>

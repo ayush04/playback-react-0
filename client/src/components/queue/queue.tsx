@@ -1,9 +1,11 @@
 import React from "react";
-
+import { Song } from "../../models/song";
+import { Queue as QueueService } from '../../services/queue';
 const Queue = () => {
+  console.log('test');
   return (
     <ul className="list-group no-border" id="playlist">
-      {[1, 2].map((el: number) => (
+      {QueueService.getCurrentQueue() && QueueService.getCurrentQueue().map((el: Song) => (
         <li
           className="list-group-item no-border no-padder padder-h-sm"
           key={el.toString()}

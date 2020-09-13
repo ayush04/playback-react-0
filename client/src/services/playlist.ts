@@ -4,7 +4,7 @@ import CONFIG from "../config/config";
 
 export class Playlist {
     static savePlaylist(name: String, songs: Array<String>): Promise<any> {
-        return fetch(CONFIG.apiPath + 'playlist/create/' + name, {
+        return fetch(CONFIG.apiPath + '/playlist/create/' + name, {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -19,7 +19,7 @@ export class Playlist {
     }
 
     static saveSong(song: Song): Promise<any> {
-        return fetch(CONFIG.apiPath + 'song/save', {
+        return fetch(CONFIG.apiPath + '/song/save', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -39,7 +39,7 @@ export class Playlist {
     }
 
     static getSong(id: String): Promise<any> {
-        return fetch(CONFIG.apiPath + 'song/' + id)
+        return fetch(CONFIG.apiPath + '/song/' + id)
             .then(response => response.json())
             .catch(err => console.log(err));
     }
@@ -47,7 +47,7 @@ export class Playlist {
     static addSongToPlaylist(id: String): Promise<any> {
         const playlistId = Storage.get('CURRENT_PLAYLIST_ID');
         if (playlistId) {
-            return fetch(CONFIG.apiPath + 'playlist/' + playlistId + '/add', {
+            return fetch(CONFIG.apiPath + '/playlist/' + playlistId + '/add', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -66,7 +66,7 @@ export class Playlist {
     static removeSongFromPlaylist(id: String): Promise<any> {
         const playlistId = Storage.get('CURRENT_PLAYLIST_ID');
         if (playlistId) {
-            return fetch(CONFIG.apiPath + 'playlist/' + playlistId + '/remove/' + id, {
+            return fetch(CONFIG.apiPath + '/playlist/' + playlistId + '/remove/' + id, {
                 method: 'DELETE',
                 mode: 'cors',
                 headers: {
@@ -80,7 +80,7 @@ export class Playlist {
     }
 
     static addCurrentlyPlaying(id: String): Promise<any> {
-        return fetch(CONFIG.apiPath + 'song/add/' + id, {
+        return fetch(CONFIG.apiPath + '/song/add/' + id, {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -90,7 +90,7 @@ export class Playlist {
     }
 
     static removeCurrentlyPlaying(id: String): Promise<any> {
-        return fetch(CONFIG.apiPath + 'song/remove/' + id, {
+        return fetch(CONFIG.apiPath + '/song/remove/' + id, {
             method: 'DELETE',
             mode: 'cors',
             headers: {

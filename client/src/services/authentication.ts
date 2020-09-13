@@ -57,7 +57,7 @@ export class Authentication {
             const response = await fetch(CONFIG.apiPath + '/secret/key');
             const responseJSON = await response.json();
             // @ts-ignore
-            gapi.client.setApiKey(responseJSON.API_KEY);
+            //gapi.client.setApiKey(responseJSON.API_KEY);
             // @ts-ignore
             gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest", "v3");
         });
@@ -67,11 +67,11 @@ export class Authentication {
             // @ts-ignore
             gapi.load('client', () => {
                 
-                fetch('http://localhost:3000/secret/key')
+                fetch(CONFIG.apiPath + '/secret/key')
                     .then(response => response.json())
                     .then(responseJson => {
                         // @ts-ignore
-                        gapi.client.setApiKey(responseJson.API_KEY);
+                        //gapi.client.setApiKey(responseJson.API_KEY);
                         // @ts-ignore
                         return resolve(gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest", "v3"));
                     });

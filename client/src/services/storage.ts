@@ -1,4 +1,4 @@
-export const enum STORAGE {
+export enum STORAGE {
     LOCAL_STORAGE,
     SESSION_STORAGE
 }

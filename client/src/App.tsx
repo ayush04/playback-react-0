@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import "./App.css";
 import "./assets/styles/app.scss";
 import Header from "./components/header/header";
-import Player from "./components/player/player";
+import { Player as YTPlayer } from "./services/player";
 import Queue from "./components/queue/queue";
+import { Queue as QueueService } from "./services/queue";
 import SearchResults from "./components/search-results/search-results";
+import Player from "./components/player/player";
+
+export let player: any;
 
 function App() {
+  const playerRef = useRef<HTMLInputElement>(null);
+  useLayoutEffect(() => {
+    player = YTPlayer.getInstance('#' + playerRef.current?.id!);
+    QueueService.initalize();
+  });
   return (
     <div className="App">
       <Header />
+      <div id="player" ref={playerRef}></div>
       <div className="app-content">
         <div className="app-content-body">
           <div className="h-box">

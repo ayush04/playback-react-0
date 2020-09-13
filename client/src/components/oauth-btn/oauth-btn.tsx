@@ -3,7 +3,8 @@ import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { Authentication } from "../../services/authentication";
 
 const CLIENT_ID: string =
-  "897342243120-5gqs1rne58kd214i5q81dof7g2kafvqi.apps.googleusercontent.com";
+  "494615400262-f7m4usct7pth64lrmuc76vsccp76fu3c.apps.googleusercontent.com";
+  //494615400262-f7m4usct7pth64lrmuc76vsccp76fu3c.apps.googleusercontent.com
 
 const GoogleBtn = ({login, logout}: any) => {
   const [isLoggedIn, setIsLoggedIn] = useState(Authentication.isAuthenticated());
