@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect, useContext, useEffect } from "react";
 import "./App.css";
 import "./assets/styles/app.scss";
 import Header from "./components/header/header";
@@ -7,15 +7,33 @@ import Queue from "./components/queue/queue";
 import { Queue as QueueService } from "./services/queue";
 import SearchResults from "./components/search-results/search-results";
 import Player from "./components/player/player";
+import { AppEvent } from "./services/event";
+import { PlaybackContext } from "./playback-context";
+import { Song } from "./models/song";
 
 export let player: any;
 
 function App() {
-  QueueService.initalize();
+  // @ts-ignore
+  const { data, setData } = useContext(PlaybackContext);
   const playerRef = useRef<HTMLInputElement>(null);
+
   useLayoutEffect(() => {
-    player = YTPlayer.getInstance('#' + playerRef.current?.id!);
+    player = YTPlayer.getInstance("#" + playerRef.current?.id!);
   });
+
+  useEffect(() => {
+    QueueService.initalize();
+    handleQueueUpdate();
+  }, []);
+
+  const handleQueueUpdate = () => {
+    let currentQueue: Song[] = QueueService.getCurrentQueue();
+    let updatedData = { ...data };
+    updatedData.queueData = currentQueue;
+    setData(updatedData);
+  };
+
   return (
     <div className="App">
       <Header />
@@ -26,7 +44,7 @@ function App() {
             <div className="col wrapper-lg">
               <h3 className="font-weight-light mt-2 mb-3">Title</h3>
               <div className="row row-cols-sm-1" id="search-results">
-                <SearchResults />
+                <SearchResults onQueueingSong={handleQueueUpdate} />
               </div>
             </div>
             <div className="col w-md bg-light">
@@ -41,7 +59,7 @@ function App() {
                     <i className="fas fa-cloud-upload-alt"></i>
                   </a>
                 </div>
-                <Queue />
+                <Queue onSongDelete={handleQueueUpdate}/>
               </div>
             </div>
           </div>

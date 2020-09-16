@@ -3,7 +3,7 @@ import { PlaybackContext } from "../../playback-context";
 import { Song } from "../../models/song";
 import { playSong as PlaySong, getSongFromId } from "../../services/song";
 
-const SearchResults = () => {
+const SearchResults = (props: any) => {
   // @ts-ignore
   const { data } = useContext(PlaybackContext);
   console.log(data);
@@ -12,7 +12,9 @@ const SearchResults = () => {
     event.preventDefault();
     const song = getSongFromId(data.searchData, songId);
     if(song) {
-      PlaySong(song, action);
+      PlaySong(song, action).then(() => {
+        props.onQueueingSong();
+      });
     }
   };
 

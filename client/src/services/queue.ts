@@ -9,7 +9,6 @@ export class Queue {
 
     static initalize() {
         Queue._queue = Queue._fetchPreviousQueue();
-        AppEvent.emit('queue-updated');
     }
     private static _fetchPreviousQueue(): any {
         const value = Storage.get('CURRENT_QUEUE');
@@ -66,12 +65,12 @@ export class Queue {
         return song[0];
     }
 
-    static deleteTrack(videoId: string): void {
+    static deleteTrack(videoId: string): Promise<any> {
         const pos = Queue._queue.findIndex(song => song.getVideoId() === videoId);
         const song = Queue._queue[pos];
         Queue._queue.splice(pos, 1);
-        Playlist.removeSongFromPlaylist(song.getId());
-        AppEvent.emit('queue-updated');
-        Storage.save('CURRENT_QUEUE', Queue._queue);
+        return Playlist.removeSongFromPlaylist(song.getId()).then(() => {
+            Storage.save('CURRENT_QUEUE', Queue._queue);
+        });
     }
 }

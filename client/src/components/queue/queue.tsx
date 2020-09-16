@@ -1,18 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Song } from "../../models/song";
 import { Queue as QueueService } from "../../services/queue";
-const Queue = () => {
-  console.log(QueueService.getCurrentQueue());
+import { PlaybackContext } from '../../playback-context';
+
+const Queue = (props: any) => {
+  const removeTrackFromQueue = (trackId: string) => {
+    if(trackId) {
+      QueueService.deleteTrack(trackId).then(() => {
+        props.onSongDelete();
+      });
+    }
+  };
+  // @ts-ignore
+  const { data, setData } = useContext(PlaybackContext);
+
   return (
     <ul className="list-group no-border" id="playlist">
-      {QueueService.getCurrentQueue() &&
-        QueueService.getCurrentQueue().map((song: Song) => (
+      {data.queueData &&
+        data.queueData.map((song: Song) => (
           <li
             className="list-group-item no-border no-padder padder-h-sm"
             key={song.getId()}
           >
             <div className="float-right m-l padder-h-sm">
-              <a className="delete-track" data-attribute={song.getId()}>
+              <a className="delete-track" onClick={() => removeTrackFromQueue(song.getVideoId()!)}>
                 <i className="fa fa-times-circle"></i>
               </a>
             </div>
