@@ -7,11 +7,10 @@ import Queue from "./components/queue/queue";
 import { Queue as QueueService } from "./services/queue";
 import SearchResults from "./components/search-results/search-results";
 import Player from "./components/player/player";
-import { AppEvent } from "./services/event";
 import { PlaybackContext } from "./playback-context";
 import { Song } from "./models/song";
 
-export let player: any;
+export let player: YTPlayer;
 
 function App() {
   // @ts-ignore
