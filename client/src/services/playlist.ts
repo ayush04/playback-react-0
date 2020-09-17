@@ -1,5 +1,5 @@
 import { Song } from "../models/song";
-import { Storage } from './storage';
+import { StorageService } from './storage';
 import CONFIG from "../config/config";
 
 export class Playlist {
@@ -45,7 +45,7 @@ export class Playlist {
     }
 
     static addSongToPlaylist(id: String): Promise<any> {
-        const playlistId = Storage.get('CURRENT_PLAYLIST_ID');
+        const playlistId = StorageService.get('CURRENT_PLAYLIST_ID');
         if (playlistId) {
             return fetch(CONFIG.apiPath + '/playlist/' + playlistId + '/add', {
                 method: 'POST',
@@ -64,7 +64,7 @@ export class Playlist {
     }
 
     static removeSongFromPlaylist(id: String): Promise<any> {
-        const playlistId = Storage.get('CURRENT_PLAYLIST_ID');
+        const playlistId = StorageService.get('CURRENT_PLAYLIST_ID');
         if (playlistId) {
             return fetch(CONFIG.apiPath + '/playlist/' + playlistId + '/remove/' + id, {
                 method: 'DELETE',

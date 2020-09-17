@@ -1,6 +1,6 @@
 import { Song } from "../models/song";
 import { AppEvent } from './event';
-import { Storage } from './storage';
+import { StorageService } from './storage';
 import { Playlist } from "./playlist";
 
 export class Queue {
@@ -11,7 +11,7 @@ export class Queue {
         Queue._queue = Queue._fetchPreviousQueue();
     }
     private static _fetchPreviousQueue(): any {
-        const value = Storage.get('CURRENT_QUEUE');
+        const value = StorageService.get('CURRENT_QUEUE');
         const _tempQueue = new Array<Song>();
         if (value) {
             value.forEach((item: any) => {
@@ -23,14 +23,14 @@ export class Queue {
     static queue(song: Song): void {
         Queue._queue.push(song);
         Playlist.addSongToPlaylist(song.getId());
-        Storage.save('CURRENT_QUEUE', Queue._queue);
+        StorageService.save('CURRENT_QUEUE', Queue._queue);
         AppEvent.emit('queue-updated');
     }
 
     static dequeue(): Song | undefined {
         const song = Queue._queue.shift();
         AppEvent.emit('queue-updated');
-        Storage.save('CURRENT_QUEUE', Queue._queue);
+        StorageService.save('CURRENT_QUEUE', Queue._queue);
         return song;
     }
 
@@ -70,7 +70,7 @@ export class Queue {
         const song = Queue._queue[pos];
         Queue._queue.splice(pos, 1);
         return Playlist.removeSongFromPlaylist(song.getId()).then(() => {
-            Storage.save('CURRENT_QUEUE', Queue._queue);
+            StorageService.save('CURRENT_QUEUE', Queue._queue);
         });
     }
 }

@@ -9,6 +9,9 @@ import SearchResults from "./components/search-results/search-results";
 import Player from "./components/player/player";
 import { PlaybackContext } from "./playback-context";
 import { Song } from "./models/song";
+import { Utils } from "./services/utils";
+import { StorageService } from "./services/storage";
+import { Playlist } from "./services/playlist";
 
 export let player: YTPlayer;
 
@@ -33,6 +36,22 @@ function App() {
     setData(updatedData);
   };
 
+  const savePlayList = (event: any) => {;
+    event.preventDefault();
+    if (!StorageService.get("CURRENT_PLAYLIST_ID")) {
+      Playlist.savePlaylist(Utils.randomNumber(), QueueService.getCurrentSongIds())
+        .then((response) => {
+          console.log(response);
+          if (response && response.id) {
+            StorageService.save("CURRENT_PLAYLIST_ID", response.id);
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      //TODO: Update playlist
+    }
+  };
+
   return (
     <div className="App">
       <Header />
@@ -53,12 +72,12 @@ function App() {
                   <a
                     className="float-right"
                     title="Save playlist"
-                    id="save-playlist"
+                    onClick={(event) => savePlayList(event)}
                   >
                     <i className="fas fa-cloud-upload-alt"></i>
                   </a>
                 </div>
-                <Queue onSongDelete={handleQueueUpdate}/>
+                <Queue onSongDelete={handleQueueUpdate} />
               </div>
             </div>
           </div>
