@@ -29,7 +29,6 @@ const Header = () => {
       let updatedData = {...data};
       updatedData.searchData = response;
       setData(updatedData);
-      console.log(updatedData);
     });
     
   };

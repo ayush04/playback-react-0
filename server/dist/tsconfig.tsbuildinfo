@@ -547,7 +547,7 @@
         "affectsGlobalScope": false
       },
       "../controllers/playlist.ts": {
-        "version": "7d7bca36b7d2cb140f61e4e0354c4dd62f2a3075812a76832820db24978ee962",
+        "version": "a43f3d7ab92ab09c33b65ccb0a28b6f821059485e6098019d12165047f7767ff",
         "signature": "e4c625c3eabdd771d07d915505ddfdd31152a8a810b0b0ff8a9bc779d12e3199",
         "affectsGlobalScope": false
       },
@@ -584,6 +584,16 @@
       "../controllers/todos.ts": {
         "version": "7c136fc65f39411f74530bc430f193d10dcb9f7e9893f794931f33627b84b258",
         "signature": "07fc6bfe08ce0d8df33de2d7b7121ed42dac3160c12087603eeb5ff8c8bcdd6a",
+        "affectsGlobalScope": false
+      },
+      "../models/user.ts": {
+        "version": "9811462230b56c2c5d880c0459642a1149b87991e9230550c4bc33986278489e",
+        "signature": "24f29f6f375711ee5f412aedb1cb1b5e79d7ef8e15b4a569cd9fe4c1157a61be",
+        "affectsGlobalScope": false
+      },
+      "../controllers/user.ts": {
+        "version": "f8b1a3e5e79f33ccbb9ab2120c9613149798ee5cf528a5e78cccdd0270269705",
+        "signature": "0b386630b2fc187a20561629cb071be52637aae0c8694d1f0278baa4c5b7c853",
         "affectsGlobalScope": false
       },
       "../routes/todos.ts": {
@@ -707,6 +717,16 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
+      "../controllers/user.ts": [
+        "../models/user.ts",
+        "../node_modules/@types/express/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/process.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/process.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
       "../models/playcount.ts": [
         "../node_modules/@types/mongoose/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
@@ -751,6 +771,15 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../utils/utils.ts"
+      ],
+      "../models/user.ts": [
+        "../node_modules/@types/mongoose/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/process.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/process.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
       ],
       "../node_modules/@types/body-parser/index.d.ts": [
         "../node_modules/@types/connect/index.d.ts",
@@ -1796,6 +1825,9 @@
       "../controllers/todos.ts": [
         "../node_modules/@types/express/index.d.ts"
       ],
+      "../controllers/user.ts": [
+        "../node_modules/@types/express/index.d.ts"
+      ],
       "../models/playcount.ts": [
         "../node_modules/@types/mongoose/index.d.ts"
       ],
@@ -1806,6 +1838,9 @@
         "../node_modules/@types/mongoose/index.d.ts"
       ],
       "../models/test.ts": [
+        "../node_modules/@types/mongoose/index.d.ts"
+      ],
+      "../models/user.ts": [
         "../node_modules/@types/mongoose/index.d.ts"
       ],
       "../node_modules/@types/body-parser/index.d.ts": [
@@ -2789,11 +2824,13 @@
       "../controllers/secret.ts",
       "../controllers/test.ts",
       "../controllers/todos.ts",
+      "../controllers/user.ts",
       "../models/playcount.ts",
       "../models/playlist.ts",
       "../models/song.ts",
       "../models/test.ts",
       "../models/todos.ts",
+      "../models/user.ts",
       "../node_modules/@types/body-parser/index.d.ts",
       "../node_modules/@types/bson/index.d.ts",
       "../node_modules/@types/color-name/index.d.ts",

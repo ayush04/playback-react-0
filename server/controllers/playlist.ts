@@ -14,12 +14,12 @@ export const saveSong: RequestHandler = (req: Request, res: Response) => {
     const videoId = req.body.videoId;
 
     const song = new Song({
-        id: id,
-        title: title,
-        description: description,
-        artistName: artistName,
-        thumbnail: thumbnail,
-        videoId: videoId
+        id,
+        title,
+        description,
+        artistName,
+        thumbnail,
+        videoId
     });
 
     song.save().then(response => {

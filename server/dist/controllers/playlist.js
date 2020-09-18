@@ -13,12 +13,12 @@ exports.saveSong = (req, res) => {
     const thumbnail = req.body.thumbnail;
     const videoId = req.body.videoId;
     const song = new song_1.Song({
-        id: id,
-        title: title,
-        description: description,
-        artistName: artistName,
-        thumbnail: thumbnail,
-        videoId: videoId
+        id,
+        title,
+        description,
+        artistName,
+        thumbnail,
+        videoId
     });
     song.save().then(response => {
         return res.status(201).json(response);
