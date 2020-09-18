@@ -18,3 +18,14 @@ export const addUser: RequestHandler = (req: Request, res: Response) => {
       return res.status(201).json(response);
   });
 };
+
+export const getUser: RequestHandler = (req: Request, res: Response) => {
+  const id = req.params.id;
+
+  User.find({id}).then(user => {
+    return res.status(200).json(user);
+  })
+  .then(error => {
+    return res.status(400).json({error});
+  });
+}

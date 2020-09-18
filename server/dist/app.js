@@ -12,8 +12,7 @@ const search_1 = __importDefault(require("./routes/search"));
 const secret_1 = __importDefault(require("./routes/secret"));
 const playlist_1 = __importDefault(require("./routes/playlist"));
 const playcount_1 = __importDefault(require("./routes/playcount"));
-//import authRoutes from './routes/google-oauth';
-//import oauth from './controllers/google-oauth';
+const user_1 = __importDefault(require("./routes/user"));
 const secret_2 = __importDefault(require("./secret/secret"));
 const app = express_1.default();
 app.use(cors_1.default());
@@ -22,10 +21,7 @@ app.use('/', search_1.default);
 app.use('/secret', secret_1.default);
 app.use('/', playlist_1.default);
 app.use('/', playcount_1.default);
-/*app.use('/', authRoutes);
-
-oauth(); */
-//app.use(passport.initialize());
+app.use('/', user_1.default);
 app.use((err, req, res, next) => {
     res.status(500).json({
         message: err.message
@@ -36,5 +32,4 @@ mongoose_1.connect(secret_2.default.MONGODB_CONNECTION_STRING)
     app.listen(3001);
 })
     .catch(err => console.log('Cannot connect to DB', err));
-//app.listen(3000);
 //# sourceMappingURL=app.js.map

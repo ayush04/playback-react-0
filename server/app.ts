@@ -8,9 +8,8 @@ import searchRoutes from './routes/search';
 import secretRoutes from './routes/secret';
 import playlistRoutes from './routes/playlist';
 import playCountRoutes from './routes/playcount';
-//import authRoutes from './routes/google-oauth';
+import userRoutes from './routes/user';
 
-//import oauth from './controllers/google-oauth';
 import SECRET from './secret/secret';
     
 const app = express();
@@ -22,10 +21,7 @@ app.use('/', searchRoutes);
 app.use('/secret', secretRoutes);
 app.use('/', playlistRoutes);
 app.use('/', playCountRoutes);
-/*app.use('/', authRoutes);
-
-oauth(); */
-//app.use(passport.initialize());
+app.use('/', userRoutes);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({
@@ -38,5 +34,3 @@ connect(SECRET.MONGODB_CONNECTION_STRING)
         app.listen(3001); 
     })
     .catch(err => console.log('Cannot connect to DB', err));
-
-//app.listen(3000);

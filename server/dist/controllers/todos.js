@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTodos = exports.createTodo = void 0;
 const todos_1 = require("../models/todos");
 const TODOS = [];
 exports.createTodo = (req, res) => {
