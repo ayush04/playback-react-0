@@ -3,12 +3,16 @@ import GoogleBtn from "../oauth-btn/oauth-btn";
 import { Authentication } from "../../services/authentication";
 import Search from "../../services/search";
 import { Song } from "../../models/song";
-import { PlaybackContext } from '../../playback-context';
-
+import { PlaybackContext } from "../../playback-context";
+import { User } from "../../services/user";
+import { User as UserModel } from "../../models/user";
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(Authentication.isAuthenticated());
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    Authentication.isAuthenticated()
+  );
   const [accessToken, setAccessToken] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [user, setUser] = useState({});
 
   // @ts-ignore
   const { data, setData } = useContext(PlaybackContext);
@@ -16,21 +20,31 @@ const Header = () => {
     setIsLoggedIn(true);
     setAccessToken(data.accessToken);
     Authentication.loadGAPIClient();
+    const userObj = new UserModel(
+      data.profileObj.googleId,
+      data.profileObj.email,
+      data.profileObj.name,
+      data.profileObj.imageUrl
+    );
+    userObj.setIsLoggedIn(true);
+    User.updateLoginStatus(userObj);
+    setUser(userObj);
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setAccessToken("");
+    // @ts-ignore
+    User.updateLoginStatus(user);
   };
 
   const search = (event: any) => {
     event.preventDefault();
     Search.search(searchTerm).then((response: Array<Song>) => {
-      let updatedData = {...data};
+      let updatedData = { ...data };
       updatedData.searchData = response;
       setData(updatedData);
     });
-    
   };
   return (
     <div>
@@ -51,12 +65,19 @@ const Header = () => {
                   type="text"
                   id="search-bar"
                   className="no-border bg-light form-control input-sm"
-                  placeholder={!isLoggedIn ? "Please signin to enable search" : "Search songs and artists"}
+                  placeholder={
+                    !isLoggedIn
+                      ? "Please signin to enable search"
+                      : "Search songs and artists"
+                  }
                   disabled={!isLoggedIn}
-                  onChange={event => setSearchTerm(event.target.value)}
+                  onChange={(event) => setSearchTerm(event.target.value)}
                 />
                 <span className="input-group-btn">
-                  <button className="btn btn-sm bg-light" onClick={event => search(event)}>
+                  <button
+                    className="btn btn-sm bg-light"
+                    onClick={(event) => search(event)}
+                  >
                     <i className="fas fa-search"></i>
                   </button>
                 </span>

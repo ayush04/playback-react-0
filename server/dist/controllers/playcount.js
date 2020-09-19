@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getTopNPlays = exports.updatePlayCount = void 0;
 const playcount_1 = require("../models/playcount");
 exports.updatePlayCount = (req, res) => {
     const songId = req.params.id;

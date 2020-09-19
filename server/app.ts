@@ -1,7 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { json } from 'body-parser';
 import cors from 'cors';
-//import passport from 'passport';
 
 import { connect } from 'mongoose';
 import searchRoutes from './routes/search';
