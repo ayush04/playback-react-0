@@ -128,13 +128,13 @@ export class Player extends YouTubePlayer {
   }
 
   togglePlay(): void {
-    if (Player._isPlaying) {
+    /*if (Player._isPlaying) {
       document.getElementById("pause-button")?.classList.remove("hidden");
       document.getElementById("play-button")?.classList.add("hidden");
     } else {
       document.getElementById("pause-button")?.classList.add("hidden");
       document.getElementById("play-button")?.classList.remove("hidden");
-    }
+    }*/
   }
 
   static seekTo(time: number): void {
@@ -187,7 +187,7 @@ export class Player extends YouTubePlayer {
   }
 
   registerEventHandlers(): void {
-    document.getElementById("play-button")?.addEventListener("click", () => {
+    /*document.getElementById("play-button")?.addEventListener("click", () => {
       console.log("Playing");
       this.playTrack();
     });
@@ -216,7 +216,7 @@ export class Player extends YouTubePlayer {
       Player.player.unMute();
       document.getElementById("vol-mute")?.classList.add("hidden");
       document.getElementById("vol-up")?.classList.remove("hidden");
-    });
+    });*/
 
     Player.player.on("playing", () => {
       this.updateTitle();

@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = require("body-parser");
 const cors_1 = __importDefault(require("cors"));
-//import passport from 'passport';
 const mongoose_1 = require("mongoose");
 const search_1 = __importDefault(require("./routes/search"));
 const secret_1 = __importDefault(require("./routes/secret"));

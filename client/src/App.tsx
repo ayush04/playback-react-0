@@ -22,7 +22,8 @@ function App() {
 
   useLayoutEffect(() => {
     player = YTPlayer.getInstance("#" + playerRef.current?.id!);
-  });
+    player.registerEventHandlers();
+  }, []);
 
   useEffect(() => {
     QueueService.initalize();
@@ -84,6 +85,9 @@ function App() {
         </div>
       </div>
       <div className="app-footer fixed-bottom">
+        <div className="progress-bar-container">
+            <div id="progress-bar" className="progress-bar progress-bar-animated progress-bar-striped"></div>
+        </div>
         <Player />
       </div>
     </div>
