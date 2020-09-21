@@ -3,6 +3,7 @@ import { Playlist } from "./playlist";
 import { Queue } from "./queue";
 import Search from "./search";
 import { player } from "../App";
+import CONFIG from "../config/config";
 
 export const getSongFromId = (data: Song[], songId: string): Song | null => {
   return Song.getSongFromList(data, songId);
@@ -14,6 +15,7 @@ export const playSong = async (song: Song, action: string) => {
       song.setVideoId(savedSong[0].videoId);
       if (action === "play") {
         player.queueAndPlay(song);
+        updatePlayCount(song.getId());
       } else {
         Queue.queue(song);
       }
@@ -42,4 +44,16 @@ export const playSong = async (song: Song, action: string) => {
       }
     }
   }
+};
+
+export const updatePlayCount = (songId: string): Promise<any> => {
+  return fetch(CONFIG.apiPath + "/playcount/" + songId, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
 };
