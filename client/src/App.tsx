@@ -40,7 +40,7 @@ function App() {
   const savePlayList = (event: any) => {;
     event.preventDefault();
     if (!StorageService.get("CURRENT_PLAYLIST_ID")) {
-      Playlist.savePlaylist(Utils.randomNumber(), QueueService.getCurrentSongIds())
+      Playlist.savePlaylist(Utils.randomNumber(), QueueService.getCurrentSongIds(), data.userData.id)
         .then((response) => {
           console.log(response);
           if (response && response.id) {

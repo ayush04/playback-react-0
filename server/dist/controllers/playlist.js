@@ -43,10 +43,11 @@ exports.getSong = (req, res) => {
 exports.createPlaylist = (req, res) => {
     const playListName = req.params.name;
     const songArr = req.body.songs;
+    const userId = req.body.userId;
     const playList = new playlist_1.Playlist({
         id: utils_1.randomNumber(),
         name: playListName,
-        createdBy: '1',
+        createdBy: userId,
         songs: songArr
     });
     playList.save().then(response => {

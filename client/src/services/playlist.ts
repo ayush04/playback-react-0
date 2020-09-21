@@ -3,7 +3,7 @@ import { StorageService } from './storage';
 import CONFIG from "../config/config";
 
 export class Playlist {
-    static savePlaylist(name: String, songs: Array<String>): Promise<any> {
+    static savePlaylist(name: String, songs: Array<String>, userId: string): Promise<any> {
         return fetch(CONFIG.apiPath + '/playlist/create/' + name, {
             method: 'POST',
             mode: 'cors',
@@ -11,7 +11,8 @@ export class Playlist {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                'songs': songs
+                'songs': songs,
+                'userId': userId
             })
         })
         .then(response => response.json())

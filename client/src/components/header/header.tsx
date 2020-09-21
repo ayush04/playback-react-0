@@ -16,19 +16,22 @@ const Header = () => {
 
   // @ts-ignore
   const { data, setData } = useContext(PlaybackContext);
-  const handleLogin = (data: any) => {
+  const handleLogin = (loginData: any) => {
     setIsLoggedIn(true);
-    setAccessToken(data.accessToken);
+    setAccessToken(loginData.accessToken);
     Authentication.loadGAPIClient();
     const userObj = new UserModel(
-      data.profileObj.googleId,
-      data.profileObj.email,
-      data.profileObj.name,
-      data.profileObj.imageUrl
+      loginData.profileObj.googleId,
+      loginData.profileObj.email,
+      loginData.profileObj.name,
+      loginData.profileObj.imageUrl
     );
     userObj.setIsLoggedIn(true);
     User.updateLoginStatus(userObj);
     setUser(userObj);
+    let updatedData = {...data};
+    updatedData.userData = userObj;
+    setData(updatedData);
   };
 
   const handleLogout = () => {
