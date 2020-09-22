@@ -170,6 +170,9 @@ export class Player extends YouTubePlayer {
 
   private elapsedTimeEl = document.getElementById("elapsed-time");
   private update(currentTime: number): void {
+    if(!this.elapsedTimeEl) {
+      this.elapsedTimeEl = document.getElementById("elapsed-time");
+    }
     if (this.elapsedTimeEl) {
       this.elapsedTimeEl.innerHTML = Utils.formatTime(currentTime);
     }

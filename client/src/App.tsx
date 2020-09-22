@@ -27,12 +27,18 @@ function App() {
 
   useEffect(() => {
     QueueService.initalize();
-    handleQueueUpdate();
+    //handleQueueUpdate();
+    const updatedData = { ...data };
+    let currentQueue: Song[] = QueueService.getCurrentQueue();
+    updatedData.queueData = currentQueue;
+    updatedData.playerProperties = {};
+    updatedData.playerProperties.isPlaying = false;
+    setData(updatedData);
   }, []);
 
   const handleQueueUpdate = () => {
     let currentQueue: Song[] = QueueService.getCurrentQueue();
-    let updatedData = { ...data };
+    const updatedData = { ...data };
     updatedData.queueData = currentQueue;
     setData(updatedData);
   };
