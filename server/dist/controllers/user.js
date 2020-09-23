@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateLoginStatus = exports.getUser = exports.addUser = void 0;
 const user_1 = require("../models/user");
 exports.addUser = (req, res) => {
     const id = req.body.id;

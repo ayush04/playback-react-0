@@ -69,17 +69,7 @@ export class Player extends YouTubePlayer {
 
   queueAndPlay(song: Song): void {
     Queue.queue(song);
-    if (Player._isPlaying) {
-      this.pauseTrack();
-      this.resetElapsedTime();
-    }
-    this.loadTrack(song.getVideoId()!);
-    Queue.updateCurrentPlayingTrack(song.getId());
-    Player._isPlaying = true;
-    this.togglePlay();
-    Player.player.play();
-    this.resetElapsedTime();
-    this.updateElapsedTime();
+    this.playTrack(song.getVideoId());
   }
 
   pauseTrack(): void {

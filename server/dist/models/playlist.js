@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Playlist = void 0;
 const mongoose_1 = require("mongoose");
 const playlistSchema = new mongoose_1.Schema({
     id: {

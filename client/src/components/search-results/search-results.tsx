@@ -5,7 +5,7 @@ import { playSong as PlaySong, getSongFromId } from "../../services/song";
 
 const SearchResults = (props: any) => {
   // @ts-ignore
-  const { data } = useContext(PlaybackContext);
+  const { data, setData } = useContext(PlaybackContext);
   console.log(data);
 
   const playSong = (songId: string, action: string, event: React.MouseEvent): void => {
@@ -14,6 +14,10 @@ const SearchResults = (props: any) => {
     if(song) {
       PlaySong(song, action).then(() => {
         props.onQueueingSong();
+        const updatedData = { ...data };
+        updatedData.playerProperties.isPlaying = true;
+        updatedData.playerProperties.currentTrackId = song.getVideoId();
+        setData(updatedData);
       });
     }
   };
@@ -23,7 +27,7 @@ const SearchResults = (props: any) => {
       {data &&
         data.searchData &&
         data.searchData.map((song: Song) => (
-          <div className="col-xs-4 col-sm-3 col-md-3 col-lg-2">
+          <div className="col-xs-4 col-sm-3 col-md-3 col-lg-2" key={song.getId()}>
             <div className="item">
               <div className="pos-rlt">
                 <div className="item-overlay bg-black-opacity">
