@@ -10,7 +10,7 @@ import Player from "./components/player/player";
 import { PlaybackContext } from "./playback-context";
 import { Song } from "./models/song";
 import { Utils } from "./services/utils";
-import { StorageService } from "./services/storage";
+import { STORAGE, StorageService } from "./services/storage";
 import { Playlist } from "./services/playlist";
 
 export let player: YTPlayer;
@@ -23,11 +23,24 @@ function App() {
   useLayoutEffect(() => {
     player = YTPlayer.getInstance("#" + playerRef.current?.id!);
     player.registerEventHandlers();
+
+    player.on("ended", () => {
+      const nextSong = QueueService.next();
+      const updatedData = { ...data };
+      if (nextSong) {
+        updatedData.playerProperties.isPlaying = true;
+        updatedData.playerProperties.currentTrackId = nextSong.getVideoId();
+      } else {
+        updatedData.playerProperties.isPlaying = false;
+        updatedData.playerProperties.currentTrackId = null;
+      }
+      setData(updatedData);
+    });
+
   }, []);
 
   useEffect(() => {
     QueueService.initalize();
-    //handleQueueUpdate();
     const updatedData = { ...data };
     let currentQueue: Song[] = QueueService.getCurrentQueue();
     updatedData.queueData = currentQueue;
@@ -43,14 +56,22 @@ function App() {
     setData(updatedData);
   };
 
-  const savePlayList = (event: any) => {;
+  const savePlayList = (event: any) => {
     event.preventDefault();
-    if (!StorageService.get("CURRENT_PLAYLIST_ID")) {
-      Playlist.savePlaylist(Utils.randomNumber(), QueueService.getCurrentSongIds(), data.userData.id)
+    if (!StorageService.get("CURRENT_PLAYLIST_ID", STORAGE.SESSION_STORAGE)) {
+      Playlist.savePlaylist(
+        Utils.randomNumber(),
+        QueueService.getCurrentSongIds(),
+        data.userData.id
+      )
         .then((response) => {
           console.log(response);
           if (response && response.id) {
-            StorageService.save("CURRENT_PLAYLIST_ID", response.id);
+            StorageService.save(
+              "CURRENT_PLAYLIST_ID",
+              response.id,
+              STORAGE.SESSION_STORAGE
+            );
           }
         })
         .catch((err) => console.log(err));
@@ -92,7 +113,10 @@ function App() {
       </div>
       <div className="app-footer fixed-bottom">
         <div className="progress-bar-container">
-            <div id="progress-bar" className="progress-bar progress-bar-animated progress-bar-striped"></div>
+          <div
+            id="progress-bar"
+            className="progress-bar progress-bar-animated progress-bar-striped"
+          ></div>
         </div>
         <Player />
       </div>
