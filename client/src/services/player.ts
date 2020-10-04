@@ -5,7 +5,7 @@ import { Song } from "../models/song";
 import { ProgressBar } from "./progress-bar";
 import { Utils } from "./utils";
 import { Playlist } from "./playlist";
-
+import { updatePlayCount } from '../services/song';
 /**
  * TODO: Format this class - messy code
  */
@@ -36,7 +36,9 @@ export class Player extends YouTubePlayer {
     Player._currentTrackId = trackId;
     Player.player.load(trackId);
     // need a better way to find song ID
-    Playlist.addCurrentlyPlaying(Queue.getSongFromTrackId(trackId).getId());
+    const currentlyPlayingSong = Queue.getSongFromTrackId(trackId).getId();
+    Playlist.addCurrentlyPlaying(currentlyPlayingSong);
+    updatePlayCount(currentlyPlayingSong);
   }
 
   getCurrentTrackId = (): string => {
@@ -55,7 +57,6 @@ export class Player extends YouTubePlayer {
       if (track) {
         this.loadTrack(track.getVideoId()!);
         Player._isPlaying = true;
-        this.togglePlay();
         Player.player.play();
         this.resetElapsedTime();
         this.updateElapsedTime();
@@ -64,7 +65,6 @@ export class Player extends YouTubePlayer {
       }
     } else {
       Player._isPlaying = true;
-      this.togglePlay();
       Player.player.play();
       //this.resetElapsedTime();
       this.updateElapsedTime();
@@ -79,7 +79,6 @@ export class Player extends YouTubePlayer {
   pauseTrack(): void {
     Player._isPlaying = false;
     Player.player.pause();
-    this.togglePlay();
     this.stopTimer();
     if (this.progress) {
       this.progress.stop();
@@ -94,7 +93,6 @@ export class Player extends YouTubePlayer {
     if (nextTrack) {
       this.loadTrack(nextTrack.getVideoId()!);
       Player._isPlaying = true;
-      this.togglePlay();
       this.resetElapsedTime();
       Player.player.play();
       this.updateElapsedTime();
@@ -108,7 +106,6 @@ export class Player extends YouTubePlayer {
     if (previousTrack) {
       this.loadTrack(previousTrack.getVideoId()!);
       Player._isPlaying = true;
-      this.togglePlay();
       this.resetElapsedTime();
       Player.player.play();
       this.updateElapsedTime();
@@ -119,16 +116,6 @@ export class Player extends YouTubePlayer {
     this.pauseTrack();
     this.progress?.reset();
     Player.player.stop();
-  }
-
-  togglePlay(): void {
-    /*if (Player._isPlaying) {
-      document.getElementById("pause-button")?.classList.remove("hidden");
-      document.getElementById("play-button")?.classList.add("hidden");
-    } else {
-      document.getElementById("pause-button")?.classList.add("hidden");
-      document.getElementById("play-button")?.classList.remove("hidden");
-    }*/
   }
 
   static seekTo(time: number): void {
@@ -184,37 +171,6 @@ export class Player extends YouTubePlayer {
   }
 
   registerEventHandlers(): void {
-    /*document.getElementById("play-button")?.addEventListener("click", () => {
-      console.log("Playing");
-      this.playTrack();
-    });
-    document.getElementById("pause-button")?.addEventListener("click", () => {
-      console.log("Paused");
-      this.pauseTrack();
-    });
-    document.getElementById("next-button")?.addEventListener("click", () => {
-      console.log("Next track");
-      this.nextTrack();
-    });
-    document
-      .getElementById("previous-button")
-      ?.addEventListener("click", () => {
-        console.log("Previous track");
-        this.previousTrack();
-      });
-
-    document.getElementById("vol-up")?.addEventListener("click", () => {
-      Player.player.mute();
-      document.getElementById("vol-up")?.classList.add("hidden");
-      document.getElementById("vol-mute")?.classList.remove("hidden");
-    });
-
-    document.getElementById("vol-mute")?.addEventListener("click", () => {
-      Player.player.unMute();
-      document.getElementById("vol-mute")?.classList.add("hidden");
-      document.getElementById("vol-up")?.classList.remove("hidden");
-    });*/
-
     Player.player.on("playing", () => {
       this.updateTitle();
       if (!this.progress) {
@@ -225,9 +181,5 @@ export class Player extends YouTubePlayer {
       this.updateElapsedTime();
       this.progress.start();
     });
-
-    /*Player.player.on("ended", () => {
-      this.nextTrack();
-    });*/
   }
 }
