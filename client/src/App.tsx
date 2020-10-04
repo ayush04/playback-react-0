@@ -20,28 +20,42 @@ function App() {
   const { data, setData } = useContext(PlaybackContext);
   const playerRef = useRef<HTMLInputElement>(null);
 
+  let updatedData: any = null;
+
+  useEffect(() => {
+    updatedData = { ...data };
+  }, [data]);
+
   useLayoutEffect(() => {
     player = YTPlayer.getInstance("#" + playerRef.current?.id!);
     player.registerEventHandlers();
 
     player.on("ended", () => {
-      const nextSong = QueueService.next();
-      const updatedData = { ...data };
-      if (nextSong) {
-        updatedData.playerProperties.isPlaying = true;
-        updatedData.playerProperties.currentTrackId = nextSong.getVideoId();
-      } else {
-        updatedData.playerProperties.isPlaying = false;
-        updatedData.playerProperties.currentTrackId = null;
+      const nextSong = QueueService.getNextTrack();
+      //const updatedData = { ...data };
+      if(updatedData.playerProperties) {
+        if (nextSong) {
+          updatedData.playerProperties.isPlaying = true;
+          updatedData.playerProperties.currentTrackId = nextSong.getVideoId();
+        } else {
+          updatedData.playerProperties.isPlaying = false;
+          updatedData.playerProperties.currentTrackId = null;
+        }
+        setData(updatedData);
+        player.nextTrack();
       }
-      setData(updatedData);
     });
 
+    player.on('playing', () => {
+      console.log('playing');
+      updatedData.playerProperties.currentTrackId = player.getCurrentTrackId();
+      setData(updatedData);
+    });
   }, []);
 
   useEffect(() => {
     QueueService.initalize();
-    const updatedData = { ...data };
+    //const updatedData = { ...data };
     let currentQueue: Song[] = QueueService.getCurrentQueue();
     updatedData.queueData = currentQueue;
     updatedData.playerProperties = {};
@@ -51,7 +65,7 @@ function App() {
 
   const handleQueueUpdate = () => {
     let currentQueue: Song[] = QueueService.getCurrentQueue();
-    const updatedData = { ...data };
+    //const updatedData = { ...data };
     updatedData.queueData = currentQueue;
     setData(updatedData);
   };

@@ -39,6 +39,10 @@ export class Player extends YouTubePlayer {
     Playlist.addCurrentlyPlaying(Queue.getSongFromTrackId(trackId).getId());
   }
 
+  getCurrentTrackId = (): string => {
+    return Player._currentTrackId;
+  }
+
   playTrack(trackId?: string): void {
     if (trackId) {
       this.stopTrack();
@@ -222,8 +226,8 @@ export class Player extends YouTubePlayer {
       this.progress.start();
     });
 
-    Player.player.on("ended", () => {
+    /*Player.player.on("ended", () => {
       this.nextTrack();
-    });
+    });*/
   }
 }

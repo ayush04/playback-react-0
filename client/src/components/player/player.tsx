@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { player } from "../../App";
 import { PlaybackContext } from "../../playback-context";
 
 const Player = () => {
   // @ts-ignore
   const { data, setData } = useContext(PlaybackContext);
+  const [isMute, setIsMute] = useState(false);
+
   const handlePlay = () => {
     const updatedData = { ...data };
     updatedData.playerProperties.isPlaying = true;
@@ -18,6 +20,17 @@ const Player = () => {
     setData(updatedData);
     player.pauseTrack();
   };
+
+  const toggleMute = () => {
+    if(isMute) {
+      player.unMute();
+    }
+    else {
+      player.mute();
+    }
+    setIsMute(!isMute);
+  };
+
   return (
     <React.Fragment>
       {data && data.playerProperties !== undefined && (
@@ -72,10 +85,10 @@ const Player = () => {
                 <button className="player-attribute" id="next-button">
                   <i className="fas fa-retweet"></i>
                 </button>
-                <button className="player-attribute" id="vol-up">
+                <button className="player-attribute" id="vol-up" hidden={isMute} onClick={() => toggleMute()}>
                   <i className="fas fa-volume-up"></i>
                 </button>
-                <button className="player-attribute hidden" id="vol-mute">
+                <button className="player-attribute" id="vol-mute" hidden={!isMute} onClick={() => toggleMute()}>
                   <i className="fas fa-volume-mute"></i>
                 </button>
               </div>

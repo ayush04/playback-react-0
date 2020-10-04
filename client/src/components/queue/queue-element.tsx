@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { player } from "../../App";
 import { PlaybackContext } from "../../playback-context";
 
@@ -6,10 +6,19 @@ const QueueElement = (props: any) => {
   //const [isPlaying, setIsPlaying] = useState(false);
   // @ts-ignore
   const { data, setData } = useContext(PlaybackContext);
+  let updatedData = data;
+  useEffect(() => {
+    updatedData = { ...data };
+  }, [data]);
+
+  player.on('playing', () => {
+    data.playerProperties.currentTrackId = player.getCurrentTrackId();
+  });
+
   const playTrack = (trackId: string) => {
     if (trackId) {
       player.playTrack(trackId);
-      const updatedData = { ...data };
+      //const updatedData = { ...data };
       updatedData.playerProperties.isPlaying = true;
       updatedData.playerProperties.currentTrackId = trackId;
       setData(updatedData);
@@ -19,7 +28,7 @@ const QueueElement = (props: any) => {
   const pauseTrack = (trackId: string) => {
     if (trackId) {
       player.pauseTrack();
-      const updatedData = { ...data };
+      //const updatedData = { ...data };
       updatedData.playerProperties.isPlaying = false;
       updatedData.playerProperties.currentTrackId = null;
       setData(updatedData);
